@@ -52,14 +52,25 @@ function Practice() {
       setCurrentExercise(exercise);
     } catch (error) {
       console.error('Failed to generate exercise:', error);
-      // Fallback to mock exercise
-      setCurrentExercise({
-        sentence: "Ele _____ (fazer) tudo para salvar o casamento.",
-        verb: "fazer",
-        answer: "fez",
-        translation: "He did everything to save the marriage.",
-        infinitive: "fazer"
-      });
+      
+      // Check if it's an API key error
+      if (error.message && error.message.includes('Invalid API key')) {
+        setIsAiEnabled(false);
+        setApiKeyInvalidNotice(true);
+        setTimeout(() => setApiKeyInvalidNotice(false), 5000);
+        // Generate using mock mode instead
+        const mockExercise = await generateExercise(nextVerb, settings.tense, true);
+        setCurrentExercise(mockExercise);
+      } else {
+        // Other errors - use fallback
+        setCurrentExercise({
+          sentence: "Ele _____ (fazer) tudo para salvar o casamento.",
+          verb: "fazer",
+          answer: "fez",
+          translation: "He did everything to save the marriage.",
+          infinitive: "fazer"
+        });
+      }
     } finally {
       setLoading(false);
     }
@@ -164,6 +175,7 @@ function Practice() {
   const [isAiEnabled, setIsAiEnabled] = createSignal(!!localStorage.getItem('openai_api_key'));
   const [showApiKeyModal, setShowApiKeyModal] = createSignal(false);
   const [tempApiKey, setTempApiKey] = createSignal('');
+  const [apiKeyInvalidNotice, setApiKeyInvalidNotice] = createSignal(false);
   
   // Toggle AI mode
   const toggleAiMode = (e) => {
@@ -186,13 +198,41 @@ function Practice() {
   };
   
   // Save API key from modal
-  const saveApiKey = () => {
-    if (tempApiKey()) {
+  const [validatingKey, setValidatingKey] = createSignal(false);
+  const [keyError, setKeyError] = createSignal('');
+  
+  const validateApiKey = async (key) => {
+    try {
+      const response = await fetch('https://api.openai.com/v1/models', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${key}`
+        }
+      });
+      return response.ok;
+    } catch (error) {
+      return false;
+    }
+  };
+  
+  const saveApiKey = async () => {
+    if (!tempApiKey()) return;
+    
+    setValidatingKey(true);
+    setKeyError('');
+    
+    const isValid = await validateApiKey(tempApiKey());
+    
+    if (isValid) {
       localStorage.setItem('openai_api_key', tempApiKey());
       setIsAiEnabled(true);
       setShowApiKeyModal(false);
       setTempApiKey('');
+    } else {
+      setKeyError('Invalid API key. Please check and try again.');
     }
+    
+    setValidatingKey(false);
   };
 
   return (
@@ -278,25 +318,32 @@ function Practice() {
             </p>
             <input
               type="password"
-              class="api-key-modal-input"
+              class={`api-key-modal-input ${keyError() ? 'error' : ''}`}
               placeholder="sk-..."
               value={tempApiKey()}
-              onInput={(e) => setTempApiKey(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && saveApiKey()}
+              onInput={(e) => {
+                setTempApiKey(e.target.value);
+                setKeyError('');
+              }}
+              onKeyDown={(e) => e.key === 'Enter' && !validatingKey() && saveApiKey()}
             />
+            {keyError() && (
+              <p class="error-message">{keyError()}</p>
+            )}
             <div class="modal-actions">
               <button class="modal-cancel" onClick={() => {
                 setShowApiKeyModal(false);
                 setTempApiKey('');
+                setKeyError('');
               }}>
                 Cancel
               </button>
               <button 
                 class="modal-save" 
                 onClick={saveApiKey}
-                disabled={!tempApiKey()}
+                disabled={!tempApiKey() || validatingKey()}
               >
-                Enable AI
+                {validatingKey() ? 'Validating...' : 'Enable AI'}
               </button>
             </div>
             <div class="privacy-notice">
@@ -305,6 +352,13 @@ function Practice() {
               </p>
             </div>
           </div>
+        </div>
+      )}
+      
+      {/* API Key Invalid Notification */}
+      {apiKeyInvalidNotice() && (
+        <div class="notification error">
+          Invalid API key detected. Switched to offline mode. Please update your key in settings.
         </div>
       )}
     </div>

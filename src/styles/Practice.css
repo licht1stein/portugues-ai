@@ -275,6 +275,17 @@
   background: rgba(45, 55, 72, 0.8);
 }
 
+.api-key-modal-input.error {
+  border-color: #fc8181;
+}
+
+.error-message {
+  color: #fc8181;
+  font-size: 0.875rem;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+}
+
 .modal-actions {
   display: flex;
   gap: 1rem;
@@ -436,5 +447,37 @@
   
   .mode-toggle input:checked + .toggle-slider::before {
     transform: translateX(20px);
+  }
+}
+
+/* Notification */
+.notification {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  background: #2d3748;
+  border: 1px solid;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  animation: slideUp 0.3s ease-out;
+}
+
+.notification.error {
+  background: rgba(245, 101, 101, 0.1);
+  border-color: rgba(245, 101, 101, 0.3);
+  color: #fc8181;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 100%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
   }
 }

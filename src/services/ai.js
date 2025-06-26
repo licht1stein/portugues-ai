@@ -158,6 +158,11 @@ Return JSON with:
     });
     
     if (!response.ok) {
+      if (response.status === 401) {
+        // Invalid API key - clear it and notify
+        localStorage.removeItem('openai_api_key');
+        throw new Error('Invalid API key. Please add a valid key in settings.');
+      }
       throw new Error('OpenAI API request failed');
     }
     
