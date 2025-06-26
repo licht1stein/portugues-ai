@@ -134,6 +134,24 @@
   text-align: right;
 }
 
+.infinite-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  color: #a0aec0;
+  margin-left: 1rem;
+}
+
+.infinite-checkbox input {
+  cursor: pointer;
+}
+
+.session-length input[type="range"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .start-button {
   display: block;
   width: 100%;

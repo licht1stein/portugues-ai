@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <!-- Green rectangle (left side) -->
+  <rect x="0" y="0" width="12" height="32" fill="#006847"/>
+  
+  <!-- Red rectangle (right side) -->
+  <rect x="12" y="0" width="20" height="32" fill="#CE1126"/>
+  
+  <!-- Yellow circle for the armillary sphere -->
+  <circle cx="12" cy="16" r="8" fill="#FFE900"/>
+  
+  <!-- Simplified Portuguese shield -->
+  <circle cx="12" cy="16" r="3" fill="#CE1126" stroke="#FFF" stroke-width="1"/>
+</svg>

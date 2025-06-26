@@ -9,14 +9,16 @@ const getApiKey = () => localStorage.getItem('openai_api_key');
 const isAiEnabled = () => !!getApiKey();
 
 // Pronouns for sentence generation (excluding vós - not commonly used)
-const pronouns = ['eu', 'tu', 'ele/ela', 'nós', 'vocês', 'eles/elas'];
+const pronouns = ['eu', 'tu', 'ele', 'ela', 'nós', 'vocês', 'eles', 'elas'];
 const pronounMap = {
   'eu': 'eu',
   'tu': 'tu', 
-  'ele/ela': 'ele',
+  'ele': 'ele',
+  'ela': 'ele', // ela uses same conjugation as ele
   'nós': 'nós',
   'vocês': 'eles', // vocês uses 3rd person plural conjugation
-  'eles/elas': 'eles'
+  'eles': 'eles',
+  'elas': 'eles' // elas uses same conjugation as eles
 };
 
 // Mock data for development - emotionally charged sentences

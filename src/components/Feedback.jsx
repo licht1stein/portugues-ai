@@ -56,6 +56,9 @@ function Feedback(props) {
       </div>
       
       <div class="feedback-actions">
+        <button class="next-button" onClick={props.onContinue}>
+          Next →
+        </button>
         <span class="shortcut-hint">
           Press Enter to continue • Ctrl+C to copy Anki card
           {copied() && <span class="copy-indicator"> ✓ Copied!</span>}

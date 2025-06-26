@@ -9,6 +9,7 @@ function Settings() {
   const [selectedTense, setSelectedTense] = createSignal('preteritoPerfeito');
   const [verbType, setVerbType] = createSignal('both');
   const [sessionLength, setSessionLength] = createSignal(20);
+  const [isInfiniteSession, setIsInfiniteSession] = createSignal(false);
   const [difficulty, setDifficulty] = createSignal('beginner');
   const [apiKey, setApiKey] = createSignal('');
   const [showApiKey, setShowApiKey] = createSignal(false);
@@ -41,7 +42,7 @@ function Settings() {
     const settings = {
       tense: selectedTense(),
       verbType: verbType(),
-      sessionLength: sessionLength(),
+      sessionLength: isInfiniteSession() ? Infinity : sessionLength(),
       difficulty: difficulty()
     };
     sessionStorage.setItem('practiceSettings', JSON.stringify(settings));
@@ -102,18 +103,29 @@ function Settings() {
         <div class="session-length">
           <input
             type="range"
-            min="10"
-            max="50"
-            step="5"
+            min="20"
+            max="150"
+            step="10"
             value={sessionLength()}
             onInput={(e) => setSessionLength(parseInt(e.target.value))}
+            disabled={isInfiniteSession()}
           />
-          <span class="session-value">{sessionLength()} exercises</span>
+          <span class="session-value">
+            {isInfiniteSession() ? '∞ Infinite' : `${sessionLength()} exercises`}
+          </span>
+          <label class="infinite-checkbox">
+            <input
+              type="checkbox"
+              checked={isInfiniteSession()}
+              onChange={(e) => setIsInfiniteSession(e.target.checked)}
+            />
+            <span>Infinite session</span>
+          </label>
         </div>
       </div>
 
       <div class="settings-section">
-        <h2>Starting Level</h2>
+        <h2>Difficulty Level</h2>
         <div class="difficulty-buttons">
           <button
             class={`option-button ${difficulty() === 'beginner' ? 'selected' : ''}`}
@@ -127,14 +139,21 @@ function Settings() {
             onClick={() => setDifficulty('intermediate')}
           >
             Intermediate
-            <span class="difficulty-desc">Top 200 verbs</span>
+            <span class="difficulty-desc">Top 250 verbs</span>
           </button>
           <button
             class={`option-button ${difficulty() === 'advanced' ? 'selected' : ''}`}
             onClick={() => setDifficulty('advanced')}
           >
             Advanced
-            <span class="difficulty-desc">All 300 verbs</span>
+            <span class="difficulty-desc">Top 500 verbs</span>
+          </button>
+          <button
+            class={`option-button ${difficulty() === 'expert' ? 'selected' : ''}`}
+            onClick={() => setDifficulty('expert')}
+          >
+            Expert
+            <span class="difficulty-desc">All 1000 verbs</span>
           </button>
         </div>
       </div>

@@ -53,11 +53,13 @@ export function getVerbsByDifficulty(difficulty) {
     case 'beginner':
       return getVerbsByFrequencyRange(1, 100);
     case 'intermediate':
-      return getVerbsByFrequencyRange(1, 200);
+      return getVerbsByFrequencyRange(1, 250);
     case 'advanced':
-      return verbsData;
+      return getVerbsByFrequencyRange(1, 500);
+    case 'expert':
+      return verbsData; // All 1000 verbs
     default:
-      return verbsData;
+      return getVerbsByFrequencyRange(1, 100);
   }
 }
 

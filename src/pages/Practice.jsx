@@ -128,7 +128,7 @@ function Practice() {
   
   // Handle continue after feedback
   const handleContinue = () => {
-    if (exerciseCount() < settings.sessionLength) {
+    if (settings.sessionLength === Infinity || exerciseCount() < settings.sessionLength) {
       loadNextExercise();
     } else {
       // Save session results
@@ -170,6 +170,20 @@ function Practice() {
     'irregular': 'Irregular',
     'both': 'All'
   };
+  
+  // Get verb count based on difficulty
+  const getVerbCount = (difficulty) => {
+    switch(difficulty) {
+      case 'beginner': return 100;
+      case 'intermediate': return 250;
+      case 'advanced': return 500;
+      case 'expert': return 1000;
+      default: return 100;
+    }
+  };
+  
+  const verbCount = getVerbCount(settings.difficulty || 'beginner');
+  const sessionLength = settings.sessionLength === Infinity ? '∞' : settings.sessionLength;
   
   // AI mode state
   const [isAiEnabled, setIsAiEnabled] = createSignal(!!localStorage.getItem('openai_api_key'));
@@ -272,6 +286,12 @@ function Practice() {
             <span class="stat-label">Accuracy:</span>
             <span class="stat-value">{accuracy()}%</span>
           </div>
+        </div>
+        
+        <div class="mode-info">
+          <span class="mode-detail">{verbCount} verbs</span>
+          <span class="mode-separator">•</span>
+          <span class="mode-detail">{sessionLength} exercises</span>
         </div>
       </div>
       

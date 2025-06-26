@@ -6,7 +6,7 @@ An AI-powered Portuguese verb conjugation practice app built with SolidJS.
 
 ## Features
 
-- 📚 **300 Most Common Verbs** - Learn the verbs that matter most, ordered by frequency
+- 📚 **1000 Most Common Verbs** - Learn the verbs that matter most, ordered by frequency
 - 🤖 **AI-Generated Exercises** - Unique, contextual sentences every time (optional)
 - 📈 **Adaptive Learning** - Automatically focuses on verbs you struggle with
 - 🎯 **Multiple Tenses** - Practice presente, pretérito perfeito, imperfeito, and futuro
@@ -52,10 +52,19 @@ Your API key is stored locally in your browser's localStorage and is never sent 
 ## How It Works
 
 1. **Choose Your Settings** - Select tense, verb type (regular/irregular), and session length
-2. **Practice** - Fill in the blanks with correct conjugations
-3. **Get Feedback** - See corrections and translations immediately
-4. **Track Progress** - The app learns which verbs you struggle with
-5. **Export to Anki** - Copy mistake cards for later review
+2. **Select Difficulty** - Choose from 4 levels:
+   - **Beginner** - Top 100 most common verbs
+   - **Intermediate** - Top 250 verbs
+   - **Advanced** - Top 500 verbs
+   - **Expert** - All 1000 verbs
+3. **Practice** - Fill in the blanks with correct conjugations
+4. **Get Feedback** - See corrections and translations immediately
+5. **Track Progress** - The app learns which verbs you struggle with
+6. **Export to Anki** - Copy mistake cards for later review
+
+### Session Options
+- **Regular Sessions** - Choose from 20 to 150 exercises
+- **Infinite Mode** - Practice as long as you want without limits
 
 ## Adaptive Algorithm
 

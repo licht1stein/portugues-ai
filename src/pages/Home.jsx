@@ -8,7 +8,7 @@ function Home() {
     <div class="home-container">
       <div class="hero">
         <h1>Portuguese with Myke</h1>
-        <p class="tagline">Master Portuguese verb conjugations with AI-generated practice</p>
+        <p class="tagline">Exercises that make you smile</p>
         
         <button class="cta-button" onClick={() => navigate('/settings')}>
           Start Learning
@@ -17,7 +17,7 @@ function Home() {
         <div class="features">
           <div class="feature">
             <div class="feature-icon">📚</div>
-            <h3>300 Most Common Verbs</h3>
+            <h3>1000 Most Common Verbs</h3>
             <p>Learn the verbs that matter most</p>
           </div>
           <div class="feature">
