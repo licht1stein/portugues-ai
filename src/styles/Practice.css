@@ -132,7 +132,7 @@
 .mode-label {
   font-size: 0.875rem;
   font-weight: 600;
-  transition: all 0.3s;
+  transition: all 0.15s;
 }
 
 .mode-label.offline {
@@ -163,7 +163,7 @@
   height: 26px;
   background-color: #e2e8f0;
   border-radius: 34px;
-  transition: all 0.3s;
+  transition: all 0.15s;
   border: 2px solid transparent;
 }
 
@@ -176,7 +176,7 @@
   bottom: 2px;
   background-color: #4a5568;
   border-radius: 50%;
-  transition: all 0.3s;
+  transition: all 0.15s;
 }
 
 .mode-toggle input:checked + .toggle-slider {
@@ -238,6 +238,23 @@
   color: #a0aec0;
   margin-bottom: 1.5rem;
   line-height: 1.5;
+}
+
+.api-key-help {
+  font-size: 0.875rem;
+  margin-bottom: 1rem !important;
+}
+
+.api-key-help a {
+  color: #63b3ed;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.api-key-help a:hover {
+  color: #4299e1;
+  text-decoration: underline;
 }
 
 .api-key-modal-input {
@@ -304,4 +321,120 @@
   color: #718096;
   text-align: center;
   margin: 0;
+}
+
+.privacy-notice {
+  background: rgba(79, 209, 197, 0.1);
+  border: 1px solid rgba(79, 209, 197, 0.2);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.privacy-notice strong {
+  color: #4fd1c5;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .practice-container {
+    padding: 1rem;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+  
+  .practice-header {
+    margin-bottom: 1rem;
+  }
+  
+  .practice-mode {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    gap: 1rem;
+  }
+  
+  .practice-mode > div:first-child {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .practice-mode > div:last-child {
+    flex: 0 0 auto;
+    justify-content: flex-end;
+  }
+  
+  .tense-name {
+    font-size: 1.25rem;
+    display: block;
+  }
+  
+  .right-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: auto;
+  }
+  
+  .mode-toggle-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .stats-bar {
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
+    gap: 1rem;
+  }
+  
+  .stat {
+    flex: 1;
+    min-width: 80px;
+    text-align: center;
+  }
+  
+  .stat-value {
+    font-size: 1rem;
+  }
+  
+  .practice-content {
+    margin-top: 2rem;
+  }
+  
+  /* Modal responsive */
+  .modal-content {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .modal-content h2 {
+    font-size: 1.25rem;
+  }
+  
+  .api-key-modal-input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+@media (max-width: 480px) {
+  .mode-label {
+    font-size: 0.75rem;
+  }
+  
+  .toggle-slider {
+    width: 44px;
+    height: 24px;
+  }
+  
+  .toggle-slider::before {
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 2px;
+  }
+  
+  .mode-toggle input:checked + .toggle-slider::before {
+    transform: translateX(20px);
+  }
 }

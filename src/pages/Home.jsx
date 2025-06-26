@@ -7,7 +7,7 @@ function Home() {
   return (
     <div class="home-container">
       <div class="hero">
-        <h1>AI Portuguese Verbs</h1>
+        <h1>Portuguese with Myke</h1>
         <p class="tagline">Master Portuguese verb conjugations with AI-generated practice</p>
         
         <button class="cta-button" onClick={() => navigate('/settings')}>
@@ -29,6 +29,11 @@ function Home() {
             <div class="feature-icon">📈</div>
             <h3>Adaptive Learning</h3>
             <p>Focus on verbs you struggle with</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">🔒</div>
+            <h3>100% Private</h3>
+            <p>Runs entirely in your browser. No servers, no tracking.</p>
           </div>
         </div>
       </div>

@@ -54,6 +54,10 @@ function Settings() {
     <div class="settings-container">
       <h1>Configure Your Practice</h1>
       
+      <button class="start-button" onClick={handleStartPractice}>
+        Start Practice
+      </button>
+      
       <div class="settings-section">
         <h2>Select Tense</h2>
         <div class="tense-grid">
@@ -139,6 +143,8 @@ function Settings() {
         <h2>OpenAI API Key</h2>
         <p class="section-description">
           Add your OpenAI API key to generate dynamic, contextual sentences. Without it, the app uses pre-defined templates.
+          <br /><br />
+          🔒 <strong>Privacy:</strong> This app runs entirely in your browser. Your key is stored only on this device.
         </p>
         <div class="api-key-section">
           {apiKey() ? (
@@ -186,10 +192,6 @@ function Settings() {
           )}
         </div>
       </div>
-
-      <button class="start-button" onClick={handleStartPractice}>
-        Start Practice
-      </button>
     </div>
   );
 }

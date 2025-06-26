@@ -273,6 +273,9 @@ function Practice() {
           <div class="modal-content" onClick={(e) => e.stopPropagation()}>
             <h2>Enable AI Mode</h2>
             <p>Enter your OpenAI API key to generate dynamic, contextual exercises.</p>
+            <p class="api-key-help">
+              Don't have an API key? <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer">Get one here →</a>
+            </p>
             <input
               type="password"
               class="api-key-modal-input"
@@ -296,9 +299,11 @@ function Practice() {
                 Enable AI
               </button>
             </div>
-            <p class="modal-note">
-              Your API key is stored locally in your browser and never sent to any server.
-            </p>
+            <div class="privacy-notice">
+              <p class="modal-note">
+                🔒 <strong>100% Private:</strong> This app runs entirely in your browser. Your API key is stored only on this device and is never sent to our servers (we don't have any!). The key is only used to communicate directly with OpenAI.
+              </p>
+            </div>
           </div>
         </div>
       )}

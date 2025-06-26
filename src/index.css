@@ -49,3 +49,33 @@ input {
 ::-webkit-scrollbar-thumb:hover {
   background: #718096;
 }
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  body {
+    /* Prevent iOS bounce effect while maintaining scroll */
+    overscroll-behavior: none;
+  }
+  
+  /* Ensure tap targets are at least 44px for mobile */
+  button, 
+  input, 
+  select, 
+  textarea,
+  a {
+    min-height: 44px;
+  }
+  
+  /* Prevent text selection on UI elements */
+  button,
+  .mode-toggle,
+  .stat,
+  .tense-button,
+  .option-button {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+}

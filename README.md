@@ -1,4 +1,4 @@
-# AI Portuguese Verbs
+# Portuguese with Myke
 
 An AI-powered Portuguese verb conjugation practice app built with SolidJS.
 

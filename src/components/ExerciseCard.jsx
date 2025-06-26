@@ -63,7 +63,7 @@ function ExerciseCard(props) {
             onClick={props.onSubmit}
             disabled={!props.userAnswer.trim()}
           >
-            Enter
+            Check
           </button>
         </div>
       )}
