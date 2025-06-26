@@ -29,6 +29,9 @@ function Feedback(props) {
     if (e.ctrlKey && e.key === 'c') {
       e.preventDefault();
       handleCopyAnki();
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      props.onContinue();
     }
   };
   

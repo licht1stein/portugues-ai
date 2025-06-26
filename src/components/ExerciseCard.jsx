@@ -55,7 +55,7 @@ function ExerciseCard(props) {
             class="answer-input"
             value={props.userAnswer}
             onInput={(e) => props.setUserAnswer(e.target.value)}
-            onKeyPress={props.onKeyPress}
+            onKeyDown={props.onKeyDown}
             placeholder="Type your answer..."
           />
           <button 

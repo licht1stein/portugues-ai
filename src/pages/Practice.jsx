@@ -106,15 +106,28 @@ function Practice() {
   // Handle enter key
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      if (showFeedback()) {
-        if (exerciseCount() < settings.sessionLength) {
-          loadNextExercise();
-        } else {
-          navigate('/results');
-        }
-      } else {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!showFeedback()) {
         checkAnswer();
       }
+    }
+  };
+  
+  // Handle continue after feedback
+  const handleContinue = () => {
+    if (exerciseCount() < settings.sessionLength) {
+      loadNextExercise();
+    } else {
+      // Save session results
+      const results = {
+        correct: correctCount(),
+        total: exerciseCount(),
+        accuracy: accuracy(),
+        ankiCards: ankiCards()
+      };
+      sessionStorage.setItem('practiceResults', JSON.stringify(results));
+      navigate('/results');
     }
   };
   
@@ -123,30 +136,7 @@ function Practice() {
     await ensureVerbsLoaded();
     loadNextExercise();
     
-    // Global enter key handler
-    const handleGlobalKeyPress = (e) => {
-      if (e.key === 'Enter' && showFeedback()) {
-        if (exerciseCount() < settings.sessionLength) {
-          loadNextExercise();
-        } else {
-          // Save session results
-          const results = {
-            correct: correctCount(),
-            total: exerciseCount(),
-            accuracy: accuracy(),
-            ankiCards: ankiCards()
-          };
-          sessionStorage.setItem('practiceResults', JSON.stringify(results));
-          navigate('/results');
-        }
-      }
-    };
-    
-    document.addEventListener('keypress', handleGlobalKeyPress);
-    
-    onCleanup(() => {
-      document.removeEventListener('keypress', handleGlobalKeyPress);
-    });
+    // No global handler needed anymore
   });
   
   // Calculate accuracy
@@ -199,7 +189,7 @@ function Practice() {
               showFeedback={showFeedback()}
               isCorrect={isCorrect()}
               onSubmit={checkAnswer}
-              onKeyPress={handleKeyPress}
+              onKeyDown={handleKeyPress}
             />
             
             {showFeedback() && (
@@ -207,21 +197,7 @@ function Practice() {
                 exercise={currentExercise()}
                 userAnswer={userAnswer()}
                 isCorrect={isCorrect()}
-                onContinue={() => {
-                  if (exerciseCount() < settings.sessionLength) {
-                    loadNextExercise();
-                  } else {
-                    // Save session results
-                    const results = {
-                      correct: correctCount(),
-                      total: exerciseCount(),
-                      accuracy: accuracy(),
-                      ankiCards: ankiCards()
-                    };
-                    sessionStorage.setItem('practiceResults', JSON.stringify(results));
-                    navigate('/results');
-                  }
-                }}
+                onContinue={handleContinue}
               />
             )}
           </>
