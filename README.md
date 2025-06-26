@@ -2,6 +2,8 @@
 
 An AI-powered Portuguese verb conjugation practice app built with SolidJS.
 
+> 🤖 **Note**: This repository is an experiment in AI-assisted coding, built entirely through conversation with Claude. Despite its experimental nature, it's proven to be quite useful for learning Portuguese verb conjugations!
+
 ## Features
 
 - 📚 **300 Most Common Verbs** - Learn the verbs that matter most, ordered by frequency
@@ -75,6 +77,10 @@ Verbs you master move to lower priority, while problem verbs appear more often.
 
 Pull requests are welcome! Please check the issues page for current tasks.
 
+## Deployment
+
+This app is deployed on GitHub Pages and available at [pt.myke.blog](https://pt.myke.blog).
+
 ## License
 
-MIT
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

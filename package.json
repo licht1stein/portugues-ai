@@ -9,8 +9,8 @@
     "deploy": "vite build && echo 'Ready to deploy the dist/ folder to any static hosting service'"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Myke Barten",
+  "license": "MIT",
   "description": "",
   "dependencies": {
     "@solidjs/router": "^0.15.3",
