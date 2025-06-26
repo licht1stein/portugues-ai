@@ -1,0 +1,95 @@
+.feedback-panel {
+  padding: 2rem;
+  border-radius: 12px;
+  margin-top: 2rem;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.feedback-panel.incorrect {
+  background: rgba(26, 32, 44, 0.9);
+  border: 2px solid #f56565;
+}
+
+.feedback-panel.correct {
+  background: rgba(26, 32, 44, 0.9);
+  border: 2px solid #48bb78;
+}
+
+.feedback-header {
+  font-size: 1.5rem;
+  color: #f56565;
+  margin-bottom: 1rem;
+}
+
+.correct-answer {
+  font-weight: 700;
+}
+
+.translation {
+  font-size: 1.25rem;
+  color: #a0aec0;
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
+.translation-label {
+  color: #718096;
+  font-style: normal;
+}
+
+.feedback-actions {
+  color: #718096;
+  font-size: 1rem;
+}
+
+.shortcut-hint {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: rgba(45, 55, 72, 0.5);
+  border-radius: 4px;
+}
+
+.hidden-copy-button {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.flash-copy {
+  animation: flashBorder 0.6s ease-in-out;
+}
+
+@keyframes flashBorder {
+  0% {
+    border-color: inherit;
+    box-shadow: none;
+  }
+  50% {
+    border-color: #48bb78;
+    box-shadow: 0 0 20px rgba(72, 187, 120, 0.5);
+  }
+  100% {
+    border-color: inherit;
+    box-shadow: none;
+  }
+}
+
+.copy-indicator {
+  color: #48bb78;
+  font-weight: 600;
+  animation: fadeIn 0.3s ease-in-out;
+}

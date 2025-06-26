@@ -1,0 +1,90 @@
+.exercise-card {
+  background: rgba(45, 55, 72, 0.8);
+  border: 2px solid rgba(66, 153, 225, 0.3);
+  border-radius: 12px;
+  padding: 3rem;
+  margin-bottom: 2rem;
+}
+
+.sentence {
+  font-size: 1.75rem;
+  line-height: 1.8;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #e2e8f0;
+}
+
+.answer-box {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  margin: 0 0.25rem;
+  font-weight: 600;
+}
+
+.answer-box.correct {
+  background: rgba(72, 187, 120, 0.2);
+  border: 1px solid #48bb78;
+  color: #48bb78;
+}
+
+.answer-box.incorrect {
+  background: rgba(245, 101, 101, 0.2);
+  border: 1px solid #f56565;
+  color: #f56565;
+}
+
+.input-placeholder {
+  color: #4299e1;
+  font-weight: 600;
+}
+
+.input-section {
+  display: flex;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.answer-input {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  font-size: 1.25rem;
+  background: rgba(26, 32, 44, 0.8);
+  border: 2px solid #4299e1;
+  border-radius: 8px;
+  color: #e2e8f0;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.answer-input:focus {
+  border-color: #63b3ed;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+}
+
+.answer-input::placeholder {
+  color: #4a5568;
+}
+
+.submit-button {
+  padding: 1rem 2.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  background: #4299e1;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: #3182ce;
+  transform: translateY(-1px);
+}
+
+.submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

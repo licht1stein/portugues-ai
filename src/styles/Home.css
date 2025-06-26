@@ -1,0 +1,82 @@
+.home-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.hero {
+  text-align: center;
+  max-width: 1000px;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #4299e1, #63b3ed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tagline {
+  font-size: 1.5rem;
+  color: #a0aec0;
+  margin-bottom: 3rem;
+}
+
+.cta-button {
+  padding: 1.25rem 3rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  background: #4299e1;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 4rem;
+}
+
+.cta-button:hover {
+  background: #3182ce;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(66, 153, 225, 0.4);
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.feature {
+  background: rgba(45, 55, 72, 0.5);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid rgba(66, 153, 225, 0.2);
+  transition: all 0.2s;
+}
+
+.feature:hover {
+  transform: translateY(-4px);
+  border-color: rgba(66, 153, 225, 0.4);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.feature h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #e2e8f0;
+}
+
+.feature p {
+  color: #a0aec0;
+  line-height: 1.6;
+}

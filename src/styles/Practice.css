@@ -1,0 +1,86 @@
+.practice-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.practice-header {
+  margin-bottom: 2rem;
+}
+
+.practice-mode {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(45, 55, 72, 0.5);
+  border-radius: 8px;
+  border: 1px solid rgba(66, 153, 225, 0.2);
+}
+
+.mode-highlight {
+  color: #4299e1;
+  font-weight: 600;
+}
+
+.ai-mode-indicator {
+  margin-left: 1rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(66, 153, 225, 0.2);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  color: #63b3ed;
+}
+
+.settings-icon {
+  margin-left: auto;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.settings-icon:hover {
+  opacity: 1;
+}
+
+.stats-bar {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem 1.5rem;
+  background: rgba(45, 55, 72, 0.5);
+  border-radius: 8px;
+  justify-content: center;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stat-label {
+  color: #a0aec0;
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.practice-content {
+  margin-top: 3rem;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.25rem;
+  color: #a0aec0;
+  padding: 4rem;
+}
