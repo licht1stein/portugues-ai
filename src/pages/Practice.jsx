@@ -145,18 +145,33 @@ function Practice() {
     return Math.round((correctCount() / exerciseCount()) * 100);
   };
   
+  // Format tense name properly
+  const tenseDisplayNames = {
+    'presente': 'Presente',
+    'preteritoPerfeito': 'Pretérito Perfeito',
+    'preteritoImperfeito': 'Pretérito Imperfeito',
+    'futuro': 'Futuro do Presente'
+  };
+  
+  const verbTypeDisplay = {
+    'regular': 'Regular',
+    'irregular': 'Irregular',
+    'both': 'All'
+  };
+
   return (
     <div class="practice-container">
       <div class="practice-header">
         <div class="practice-mode">
-          <span>Practicing: </span>
-          <span class="mode-highlight">
-            {settings.tense} - {settings.verbType === 'both' ? 'All Verbs' : `${settings.verbType} Verbs`}
-          </span>
-          <span class="ai-mode-indicator">
-            {import.meta.env.VITE_AI_MODE === 'openai' ? '🤖 AI Mode' : '📚 Mock Mode'}
-          </span>
-          <button class="settings-icon" onClick={() => navigate('/settings')}>⚙️</button>
+          <div>
+            <span class="tense-name">{tenseDisplayNames[settings.tense] || settings.tense}</span>
+          </div>
+          <div class="right-controls">
+            <span class={`ai-badge ${import.meta.env.VITE_AI_MODE === 'openai' ? 'ai' : 'mock'}`}>
+              {import.meta.env.VITE_AI_MODE === 'openai' ? 'AI Mode' : 'Practice Mode'}
+            </span>
+            <button class="settings-icon" onClick={() => navigate('/settings')}>⚙️</button>
+          </div>
         </div>
         
         <div class="stats-bar">

@@ -16,27 +16,39 @@ const pronounMap = {
   'eles/elas': 'eles'
 };
 
-// Mock data for development - SHORT sentences
+// Mock data for development - emotionally charged sentences
 const mockTemplates = [
   {
-    template: "{pronoun} _____ ({verb}) tudo.",
-    contexts: ["perder", "fazer", "saber", "querer"]
+    template: "{pronoun} _____ ({verb}) o amante secreto.",
+    contexts: ["esconder", "encontrar", "beijar", "desejar"]
   },
   {
-    template: "{pronoun} _____ ({verb}) muito tarde.",
-    contexts: ["chegar", "acordar", "voltar", "sair"]
+    template: "{pronoun} _____ ({verb}) com ciúmes doentios.",
+    contexts: ["sofrer", "viver", "morrer", "lutar"]
   },
   {
-    template: "{pronoun} _____ ({verb}) a verdade.",
-    contexts: ["dizer", "saber", "esconder", "descobrir"]
+    template: "{pronoun} _____ ({verb}) a traição dele.",
+    contexts: ["descobrir", "esconder", "revelar", "planear"]
   },
   {
-    template: "{pronoun} _____ ({verb}) sem medo.",
-    contexts: ["viver", "falar", "lutar", "continuar"]
+    template: "{pronoun} _____ ({verb}) vingança no escuro.",
+    contexts: ["preparar", "querer", "executar", "sonhar"]
   },
   {
-    template: "{pronoun} _____ ({verb}) o dinheiro.",
-    contexts: ["perder", "encontrar", "gastar", "esconder"]
+    template: "{pronoun} _____ ({verb}) os segredos proibidos.",
+    contexts: ["guardar", "revelar", "descobrir", "escrever"]
+  },
+  {
+    template: "{pronoun} _____ ({verb}) pelo poder absoluto.",
+    contexts: ["lutar", "matar", "vender", "sacrificar"]
+  },
+  {
+    template: "{pronoun} _____ ({verb}) na cama alheia.",
+    contexts: ["dormir", "acordar", "chorar", "morrer"]
+  },
+  {
+    template: "{pronoun} _____ ({verb}) o corpo no porão.",
+    contexts: ["esconder", "encontrar", "enterrar", "queimar"]
   }
 ];
 
@@ -53,11 +65,26 @@ function generateMockExercise(verb, tense) {
     .replace('{pronoun}', pronoun.charAt(0).toUpperCase() + pronoun.slice(1))
     .replace('{verb}', verb.infinitive);
   
+  // Create a more interesting translation based on the template
+  const translations = {
+    "o amante secreto": "the secret lover",
+    "com ciúmes doentios": "with sick jealousy",
+    "a traição dele": "his betrayal",
+    "vingança no escuro": "revenge in the dark",
+    "os segredos proibidos": "the forbidden secrets",
+    "pelo poder absoluto": "for absolute power",
+    "na cama alheia": "in someone else's bed",
+    "o corpo no porão": "the body in the basement"
+  };
+  
+  const contextPhrase = template.template.split('_____')[1].replace(' ({verb})', '').trim();
+  const translation = translations[contextPhrase] || "something dark";
+  
   return {
     sentence,
     verb: verb.infinitive,
     answer: answer || 'conjugação',
-    translation: `${pronoun} ${answer} something scandalous.`,
+    translation: `${pronoun} ${answer} ${translation}`,
     infinitive: verb.infinitive,
     pronoun: pronounKey
   };
@@ -85,19 +112,30 @@ async function generateWithOpenAI(verb, tense) {
         messages: [
           {
             role: 'system',
-            content: `You are a Portuguese language tutor creating fill-in-the-blank exercises.
+            content: `You are a Portuguese language tutor creating emotionally charged, provocative fill-in-the-blank exercises.
 
 TASK: Create a SHORT sentence (5-8 words) where the student must conjugate the verb "${verb.infinitive}" for pronoun "${pronoun}" in ${tense}.
+
+TONE: Use dark, intense, emotionally loaded themes like:
+- Forbidden desires and secret affairs
+- Betrayal, jealousy, and revenge
+- Obsession and dangerous attraction
+- Power dynamics and manipulation
+- Existential crises and dark thoughts
+- Scandalous confessions
+- Morally ambiguous situations
 
 FORMAT RULES:
 1. Put _____ where the conjugated verb goes
 2. IMMEDIATELY after _____ put (${verb.infinitive}) in parentheses
 3. The blank must be where the verb naturally belongs in the sentence
+4. Keep it edgy but educational
 
-CORRECT examples:
-- "Ela _____ (fazer) tudo ontem."
-- "Nós _____ (ser) muito felizes."
-- "Eles _____ (ter) um segredo."
+EXAMPLES of the tone you should aim for:
+- "Ela _____ (trair) o marido ontem."
+- "Nós _____ (esconder) corpos no porão."
+- "Tu _____ (desejar) a tua cunhada."
+- "Eles _____ (mentir) sobre o assassinato."
 
 Return JSON with:
 {
