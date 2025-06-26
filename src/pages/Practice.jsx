@@ -46,7 +46,8 @@ function Practice() {
         throw new Error('No verb selected');
       }
       
-      const exercise = await generateExercise(nextVerb, settings.tense);
+      // Pass the current mode state to generateExercise
+      const exercise = await generateExercise(nextVerb, settings.tense, !isAiEnabled());
       console.log('Generated exercise:', exercise);
       setCurrentExercise(exercise);
     } catch (error) {
@@ -158,6 +159,41 @@ function Practice() {
     'irregular': 'Irregular',
     'both': 'All'
   };
+  
+  // AI mode state
+  const [isAiEnabled, setIsAiEnabled] = createSignal(!!localStorage.getItem('openai_api_key'));
+  const [showApiKeyModal, setShowApiKeyModal] = createSignal(false);
+  const [tempApiKey, setTempApiKey] = createSignal('');
+  
+  // Toggle AI mode
+  const toggleAiMode = (e) => {
+    const existingKey = localStorage.getItem('openai_api_key');
+    
+    if (isAiEnabled()) {
+      // Switching to offline mode (but keeping the key)
+      setIsAiEnabled(false);
+    } else {
+      // Switching to AI mode
+      if (existingKey) {
+        setIsAiEnabled(true);
+      } else {
+        // No key available, show modal
+        e.preventDefault();
+        e.target.checked = false;
+        setShowApiKeyModal(true);
+      }
+    }
+  };
+  
+  // Save API key from modal
+  const saveApiKey = () => {
+    if (tempApiKey()) {
+      localStorage.setItem('openai_api_key', tempApiKey());
+      setIsAiEnabled(true);
+      setShowApiKeyModal(false);
+      setTempApiKey('');
+    }
+  };
 
   return (
     <div class="practice-container">
@@ -167,9 +203,18 @@ function Practice() {
             <span class="tense-name">{tenseDisplayNames[settings.tense] || settings.tense}</span>
           </div>
           <div class="right-controls">
-            <span class={`ai-badge ${import.meta.env.VITE_AI_MODE === 'openai' ? 'ai' : 'mock'}`}>
-              {import.meta.env.VITE_AI_MODE === 'openai' ? 'AI Mode' : 'Practice Mode'}
-            </span>
+            <div class="mode-toggle-container">
+              <span class="mode-label offline">Offline</span>
+              <label class="mode-toggle">
+                <input
+                  type="checkbox"
+                  checked={isAiEnabled()}
+                  onChange={toggleAiMode}
+                />
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="mode-label ai">AI</span>
+            </div>
             <button class="settings-icon" onClick={() => navigate('/settings')}>⚙️</button>
           </div>
         </div>
@@ -218,6 +263,45 @@ function Practice() {
           </>
         )}
       </div>
+      
+      {/* API Key Modal */}
+      {showApiKeyModal() && (
+        <div class="modal-overlay" onClick={() => {
+          setShowApiKeyModal(false);
+          setTempApiKey('');
+        }}>
+          <div class="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>Enable AI Mode</h2>
+            <p>Enter your OpenAI API key to generate dynamic, contextual exercises.</p>
+            <input
+              type="password"
+              class="api-key-modal-input"
+              placeholder="sk-..."
+              value={tempApiKey()}
+              onInput={(e) => setTempApiKey(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && saveApiKey()}
+            />
+            <div class="modal-actions">
+              <button class="modal-cancel" onClick={() => {
+                setShowApiKeyModal(false);
+                setTempApiKey('');
+              }}>
+                Cancel
+              </button>
+              <button 
+                class="modal-save" 
+                onClick={saveApiKey}
+                disabled={!tempApiKey()}
+              >
+                Enable AI
+              </button>
+            </div>
+            <p class="modal-note">
+              Your API key is stored locally in your browser and never sent to any server.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

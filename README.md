@@ -5,11 +5,12 @@ An AI-powered Portuguese verb conjugation practice app built with SolidJS.
 ## Features
 
 - 📚 **300 Most Common Verbs** - Learn the verbs that matter most, ordered by frequency
-- 🤖 **AI-Generated Exercises** - Unique, contextual sentences every time
+- 🤖 **AI-Generated Exercises** - Unique, contextual sentences every time (optional)
 - 📈 **Adaptive Learning** - Automatically focuses on verbs you struggle with
 - 🎯 **Multiple Tenses** - Practice presente, pretérito perfeito, imperfeito, and futuro
 - 📝 **Anki Integration** - Export mistakes as Anki cards for spaced repetition
 - 🌙 **Dark Theme** - Easy on the eyes during long practice sessions
+- 🔒 **Privacy First** - Fully client-side app, API keys stored locally in browser
 
 ## Getting Started
 
@@ -24,30 +25,27 @@ cd portugues-ai
 npm install
 ```
 
-3. Configure AI (optional)
-```bash
-cp .env.example .env
-# Edit .env to add your OpenAI API key
-```
-
-4. Start the development server
+3. Start the development server
 ```bash
 npm run dev
 ```
 
-5. Open http://localhost:3000 in your browser
+4. Open http://localhost:5173 in your browser
 
 ## AI Configuration
 
-The app supports two AI modes:
+The app automatically detects whether to use AI based on the presence of an OpenAI API key:
 
-- **Mock Mode** (default) - Uses pre-defined templates for offline practice
-- **OpenAI Mode** - Generates dynamic exercises using GPT-3.5/GPT-4
+- **Practice Mode** (default) - Uses pre-defined templates with dark, emotionally charged themes
+- **AI Mode** - Generates dynamic exercises using OpenAI's GPT models
 
-To enable OpenAI:
+To enable AI Mode:
 1. Get an API key from https://platform.openai.com
-2. Add it to your `.env` file
-3. Set `VITE_AI_MODE=openai`
+2. Go to the Settings page in the app
+3. Enter your API key in the secure input field
+4. The app will automatically switch to AI Mode
+
+Your API key is stored locally in your browser's localStorage and is never sent to any server except OpenAI's API.
 
 ## How It Works
 

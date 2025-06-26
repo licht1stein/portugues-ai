@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js';
+import { createSignal, onMount } from 'solid-js';
 import { useNavigate } from '@solidjs/router';
 import '../styles/Settings.css';
 
@@ -10,6 +10,24 @@ function Settings() {
   const [verbType, setVerbType] = createSignal('both');
   const [sessionLength, setSessionLength] = createSignal(20);
   const [difficulty, setDifficulty] = createSignal('beginner');
+  const [apiKey, setApiKey] = createSignal('');
+  const [showApiKey, setShowApiKey] = createSignal(false);
+  
+  // Load API key from localStorage on mount
+  onMount(() => {
+    const savedApiKey = localStorage.getItem('openai_api_key') || '';
+    setApiKey(savedApiKey);
+  });
+  
+  // Save API key to localStorage
+  const handleApiKeyChange = (value) => {
+    setApiKey(value);
+    if (value) {
+      localStorage.setItem('openai_api_key', value);
+    } else {
+      localStorage.removeItem('openai_api_key');
+    }
+  };
 
   const tenses = [
     { id: 'presente', name: 'Presente', example: 'eu falo' },
@@ -114,6 +132,58 @@ function Settings() {
             Advanced
             <span class="difficulty-desc">All 300 verbs</span>
           </button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h2>OpenAI API Key</h2>
+        <p class="section-description">
+          Add your OpenAI API key to generate dynamic, contextual sentences. Without it, the app uses pre-defined templates.
+        </p>
+        <div class="api-key-section">
+          {apiKey() ? (
+            <>
+              <div class="api-key-status-card">
+                <div class="status-info">
+                  <span class="status-active">✓ API Key Configured</span>
+                  <p class="status-description">
+                    You can switch between AI and Offline modes using the toggle in the practice screen.
+                  </p>
+                </div>
+                <button
+                  class="delete-key-button"
+                  onClick={() => {
+                    if (confirm('Are you sure you want to delete your API key?')) {
+                      handleApiKeyChange('');
+                    }
+                  }}
+                >
+                  Delete Key
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div class="api-key-input-wrapper">
+                <input
+                  type={showApiKey() ? "text" : "password"}
+                  class="api-key-input"
+                  placeholder="sk-..."
+                  value={apiKey()}
+                  onInput={(e) => handleApiKeyChange(e.target.value)}
+                />
+                <button
+                  class="toggle-visibility"
+                  onClick={() => setShowApiKey(!showApiKey())}
+                >
+                  {showApiKey() ? '🙈' : '👁️'}
+                </button>
+              </div>
+              <div class="api-key-status">
+                <span class="status-inactive">No API Key - Offline Mode Only</span>
+              </div>
+            </>
+          )}
         </div>
       </div>
 

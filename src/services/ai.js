@@ -2,8 +2,11 @@
 // Supports multiple providers with fallback
 import { getConjugation } from '../data/loadVerbs';
 
-const AI_MODE = import.meta.env.VITE_AI_MODE || 'mock';
-const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
+// Get API key from localStorage
+const getApiKey = () => localStorage.getItem('openai_api_key');
+
+// Determine if we should use AI mode based on API key availability
+const isAiEnabled = () => !!getApiKey();
 
 // Pronouns for sentence generation (excluding vós - not commonly used)
 const pronouns = ['eu', 'tu', 'ele/ela', 'nós', 'vocês', 'eles/elas'];
@@ -92,7 +95,8 @@ function generateMockExercise(verb, tense) {
 
 // Generate exercise using OpenAI
 async function generateWithOpenAI(verb, tense) {
-  if (!OPENAI_API_KEY) {
+  const apiKey = getApiKey();
+  if (!apiKey) {
     console.warn('OpenAI API key not found, falling back to mock');
     return generateMockExercise(verb, tense);
   }
@@ -105,7 +109,7 @@ async function generateWithOpenAI(verb, tense) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENAI_API_KEY}`
+        'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
         model: 'gpt-3.5-turbo',
@@ -181,25 +185,25 @@ Return JSON with:
 }
 
 // Main export function
-export async function generateExercise(verb, tense) {
-  switch(AI_MODE) {
-    case 'openai':
-      return generateWithOpenAI(verb, tense);
-    case 'mock':
-    default:
-      return generateMockExercise(verb, tense);
+export async function generateExercise(verb, tense, forceOffline = false) {
+  // Check if AI should be used (key exists AND not forced offline)
+  if (isAiEnabled() && !forceOffline) {
+    return generateWithOpenAI(verb, tense);
+  } else {
+    return generateMockExercise(verb, tense);
   }
 }
 
 // Generate translation for a sentence
 export async function translateSentence(sentence) {
-  if (AI_MODE === 'openai' && OPENAI_API_KEY) {
+  const apiKey = getApiKey();
+  if (apiKey) {
     try {
       const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${OPENAI_API_KEY}`
+          'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
           model: 'gpt-3.5-turbo',
